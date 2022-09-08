@@ -1,13 +1,48 @@
 package com.springAngluar;
 
+import com.springAngluar.models.Chamado;
+import com.springAngluar.models.Cliente;
+import com.springAngluar.models.Tecnico;
+import com.springAngluar.models.enums.Perfil;
+import com.springAngluar.models.enums.Prioridade;
+import com.springAngluar.models.enums.Status;
+import com.springAngluar.repositories.ChamadoRepository;
+import com.springAngluar.repositories.ClienteRepository;
+import com.springAngluar.repositories.TecnicoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.Arrays;
+
 @SpringBootApplication
-public class CourseAngularSpringApplication {
+public class CourseAngularSpringApplication implements CommandLineRunner {
+
+	@Autowired
+	private TecnicoRepository tecnicoRepository;
+
+	@Autowired
+	private ClienteRepository clienteRepository;
+
+	@Autowired
+	private ChamadoRepository chamadoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CourseAngularSpringApplication.class, args);
 	}
 
+	@Override
+	public void run(String... args) throws Exception {
+		Tecnico t1 = new Tecnico(null, "Valdir Cezar", "11122233344", "valcir@gmail.com", "123");
+		t1.addPerfil(Perfil.ADMIN);
+
+		Cliente c1 = new Cliente(null, "Linus Torvalds", "22233311144", "linus@gmail.com", "123");
+
+		Chamado cha1 = new Chamado(null, Prioridade.MEDIA, Status.ANDAMENTO, "Chamado 01", "Primeiro Chamado", t1, c1);
+
+		tecnicoRepository.saveAll(Arrays.asList(t1));
+		clienteRepository.saveAll(Arrays.asList(c1));
+		chamadoRepository.saveAll(Arrays.asList(cha1));
+	}
 }
