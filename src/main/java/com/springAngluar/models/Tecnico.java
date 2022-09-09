@@ -1,5 +1,6 @@
 package com.springAngluar.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.springAngluar.models.enums.Perfil;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ public class Tecnico extends Pessoa{
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "tecnico")
     private List<Chamado> chamados = new ArrayList<>();
 
