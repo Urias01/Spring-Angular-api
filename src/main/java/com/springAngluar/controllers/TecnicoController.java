@@ -1,5 +1,6 @@
 package com.springAngluar.controllers;
 
+import com.springAngluar.dtos.TecnicoDto;
 import com.springAngluar.models.Tecnico;
 import com.springAngluar.services.TecnicoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ public class TecnicoController {
     private TecnicoService service;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Tecnico> findById(@PathVariable Long id){
+    public ResponseEntity<TecnicoDto> findById(@PathVariable Long id){
         Tecnico obj = service.findById(id);
-        return ResponseEntity.ok().body(obj);
+        return ResponseEntity.ok().body(new TecnicoDto(obj));
     }
 }
