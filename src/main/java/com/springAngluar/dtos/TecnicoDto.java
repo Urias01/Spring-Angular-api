@@ -3,14 +3,11 @@ package com.springAngluar.dtos;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.springAngluar.models.Tecnico;
 import com.springAngluar.models.enums.Perfil;
-import com.sun.istack.NotNull;
+
 import lombok.Data;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.FetchType;
-import java.io.Serial;
+
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -22,9 +19,13 @@ public class TecnicoDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     protected Long id;
+    @NotNull(message = "O campo NOME é requerido")
     protected String name;
+    @NotNull(message = "O campo CPF é requerido")
     protected String cpf;
+    @NotNull(message = "O campo EMAIL é requerido")
     protected String email;
+    @NotNull(message = "O campo SENHA é requerido")
     protected String password;
     protected Set<Integer> perfis = new HashSet<>();
 

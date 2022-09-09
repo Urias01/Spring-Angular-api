@@ -5,9 +5,11 @@ import com.springAngluar.models.Tecnico;
 import com.springAngluar.services.TecnicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,7 +24,8 @@ public class TecnicoController {
     @GetMapping
     public ResponseEntity<List<TecnicoDto>> findAll(){
         List<Tecnico> list = service.findAll();
-        List<TecnicoDto> listDto = list.stream().map(TecnicoDto::new).collect(Collectors.toList());
+        List<TecnicoDto> listDto = list.stream().map(TecnicoDto::new)
+                .collect(Collectors.toList());
         return ResponseEntity.ok().body(listDto);
     }
 
@@ -33,9 +36,10 @@ public class TecnicoController {
     }
 
     @PostMapping
-    public ResponseEntity<TecnicoDto> create(@RequestBody TecnicoDto objDto){
+    public ResponseEntity<TecnicoDto> create(@Valid @RequestBody TecnicoDto objDto){
         Tecnico newObj = service.create(objDto);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(newObj.getId()).toUri();
         return  ResponseEntity.created(uri).build();
     }
 
