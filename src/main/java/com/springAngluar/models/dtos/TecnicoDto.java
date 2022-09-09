@@ -1,10 +1,11 @@
-package com.springAngluar.dtos;
+package com.springAngluar.models.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.springAngluar.models.Tecnico;
 import com.springAngluar.models.enums.Perfil;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.br.CPF;
 
 
 import javax.validation.constraints.NotNull;
@@ -22,6 +23,7 @@ public class TecnicoDto implements Serializable {
     @NotNull(message = "O campo NOME é requerido")
     protected String name;
     @NotNull(message = "O campo CPF é requerido")
+    @CPF
     protected String cpf;
     @NotNull(message = "O campo EMAIL é requerido")
     protected String email;

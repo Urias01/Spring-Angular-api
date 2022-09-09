@@ -1,10 +1,9 @@
 package com.springAngluar.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.springAngluar.dtos.TecnicoDto;
+import com.springAngluar.models.dtos.TecnicoDto;
 import com.springAngluar.models.enums.Perfil;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;

@@ -27,10 +27,10 @@ public class DBService {
     private ChamadoRepository chamadoRepository;
 
     public void instaniciaDB(){
-        Tecnico t1 = new Tecnico(null, "Valdir Cezar", "11122233344", "valcir@gmail.com", "123");
+        Tecnico t1 = new Tecnico(null, "Valdir Cezar", "41012307301", "valcir@gmail.com", "123");
         t1.addPerfil(Perfil.ADMIN);
 
-        Cliente c1 = new Cliente(null, "Linus Torvalds", "22233311144", "linus@gmail.com", "123");
+        Cliente c1 = new Cliente(null, "Linus Torvalds", "68841135298", "linus@gmail.com", "123");
 
         Chamado cha1 = new Chamado(null, Prioridade.MEDIA, Status.ANDAMENTO, "Chamado 01", "Primeiro Chamado", t1, c1);
 
