@@ -3,6 +3,7 @@ package com.springAngluar.models;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.springAngluar.models.enums.Perfil;
 import lombok.Data;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import java.io.Serial;
@@ -23,6 +24,7 @@ public abstract class Pessoa implements Serializable {
     protected Long id;
     protected String name;
 
+    @CPF
     @Column(unique = true)
     protected String cpf;
 
