@@ -3,7 +3,7 @@ package com.springAngluar.models.enums;
 public enum Perfil {
     ADMIN(0, "ROLE_ADMIN"),
     CLIENTE(1, "ROLE_CLIENT"),
-    USER(2, "ROLE_USAR");
+    USER(2, "ROLE_USER");
 
 
     private Integer codigo;
