@@ -3,6 +3,7 @@ package com.springAngluar.dtos;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.springAngluar.models.Tecnico;
 import com.springAngluar.models.enums.Perfil;
+import com.sun.istack.NotNull;
 import lombok.Data;
 
 import javax.persistence.CollectionTable;
@@ -18,7 +19,6 @@ import java.util.stream.Collectors;
 
 @Data
 public class TecnicoDto implements Serializable {
-    @Serial
     private static final long serialVersionUID = 1L;
 
     protected Long id;
@@ -33,16 +33,20 @@ public class TecnicoDto implements Serializable {
 
     public TecnicoDto() {
         super();
+        addPerfil(Perfil.CLIENTE);
     }
 
-    public TecnicoDto(Tecnico tecnico) {
-        id = tecnico.getId();
-        name = tecnico.getName();
-        cpf = tecnico.getCpf();
-        email = tecnico.getEmail();
-        password = tecnico.getPassword();
-        perfis = tecnico.getPerfis().stream().map(Perfil::getCodigo).collect(Collectors.toSet());
-        dataCreate = tecnico.getDataCreate();
+
+    public TecnicoDto(Tecnico obj) {
+        super();
+        this.id = obj.getId();
+        this.name = obj.getName();
+        this.cpf = obj.getCpf();
+        this.email = obj.getEmail();
+        this.password = obj.getPassword();
+        this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
+        this.dataCreate = obj.getDataCreate();
+        addPerfil(Perfil.CLIENTE);
     }
 
     public Set<Perfil> getPerfis(){
@@ -51,5 +55,9 @@ public class TecnicoDto implements Serializable {
 
     public void setPerfis(Perfil perfis){
         this.perfis.add(perfis.getCodigo());
+    }
+
+    public void addPerfil(Perfil perfil) {
+        this.perfis.add(perfil.getCodigo());
     }
 }
