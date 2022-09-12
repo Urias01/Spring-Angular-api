@@ -12,6 +12,7 @@ import com.springAngluar.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +40,12 @@ public class ChamadoService {
     public Chamado create(ChamadoDto chamadoDto) {
         return repository.save(newChamado(chamadoDto));
     }
+    public Chamado update(Long id, ChamadoDto chamadoDto) {
+        chamadoDto.setId(id);
+        Chamado oldChamado = findById(id);
+        oldChamado = newChamado(chamadoDto);
+        return repository.save(oldChamado);
+    }
 
     private Chamado newChamado(ChamadoDto chamadoDto){
         Tecnico tecnico = tecnicoService.findById(chamadoDto.getTecnico());
@@ -49,6 +56,10 @@ public class ChamadoService {
             chamado.setId(chamadoDto.getId());
         }
 
+        if(chamadoDto.getStatus().equals(2)){
+            chamado.setDateFechamento(LocalDate.now());
+        }
+
         chamado.setTecnico(tecnico);
         chamado.setCliente(cliente);
         chamado.setPrioridade(Prioridade.toEnum(chamadoDto.getPrioridade()));
@@ -57,4 +68,6 @@ public class ChamadoService {
         chamado.setObservacoes(chamadoDto.getObservacoes());
         return chamado;
     }
+
+
 }

@@ -29,17 +29,26 @@ public class ChamadoController {
     @GetMapping
     public ResponseEntity<List<ChamadoDto>> findAll(){
         List<Chamado> list = service.findAll();
-        List<ChamadoDto> listDto = list.stream().map(obj ->
-                new ChamadoDto(obj)).collect(Collectors.toList());
+        List<ChamadoDto> listDto = list.stream().map(ChamadoDto::new)
+                .collect(Collectors.toList());
         return ResponseEntity.ok().body(listDto);
     }
 
     @PostMapping
-    public ResponseEntity<ChamadoDto> create(@Valid @RequestBody ChamadoDto chamadoDto){
+    public ResponseEntity<ChamadoDto> create(@Valid
+                                                 @RequestBody ChamadoDto chamadoDto){
         Chamado chamado = service.create(chamadoDto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(chamado.getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ChamadoDto> update(
+            @Valid @RequestBody ChamadoDto chamadoDto,
+            @PathVariable Long id){
+        Chamado newChamado = service.update(id, chamadoDto);
+        return ResponseEntity.ok().body(new ChamadoDto(newChamado));
     }
 
 
