@@ -5,11 +5,11 @@ import com.springAngluar.models.dtos.ChamadoDto;
 import com.springAngluar.services.ChamadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,5 +33,14 @@ public class ChamadoController {
                 new ChamadoDto(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDto);
     }
+
+    @PostMapping
+    public ResponseEntity<ChamadoDto> create(@Valid @RequestBody ChamadoDto chamadoDto){
+        Chamado chamado = service.create(chamadoDto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(chamado.getId()).toUri();
+        return ResponseEntity.created(uri).build();
+    }
+
 
 }
