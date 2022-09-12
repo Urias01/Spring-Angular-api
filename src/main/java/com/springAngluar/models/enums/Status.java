@@ -2,7 +2,7 @@ package com.springAngluar.models.enums;
 
 public enum Status {
 
-    ATIVO(0, "ABERTO"),
+    ABERTO(0, "ABERTO"),
     ANDAMENTO(1, "ANDAMENTO"),
     ENCERRADO(2, "ENCERRADO");
 

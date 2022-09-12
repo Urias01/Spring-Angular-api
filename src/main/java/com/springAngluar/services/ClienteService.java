@@ -8,6 +8,7 @@ import com.springAngluar.repositories.PessoaRepository;
 import com.springAngluar.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,9 @@ public class ClienteService {
     @Autowired
     private PessoaRepository pessoaRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
     public List<Cliente> findAll(){
         return repository.findAll();
     }
@@ -33,6 +37,7 @@ public class ClienteService {
 
     public Cliente create(ClienteDto objDto) {
         objDto.setId(null);
+        objDto.setPassword(encoder.encode(objDto.getPassword()));
         validateForCpfAndEmail(objDto);
         Cliente newObj = new Cliente(objDto);
         return repository.save(newObj);
