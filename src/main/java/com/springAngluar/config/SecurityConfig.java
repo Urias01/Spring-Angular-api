@@ -24,7 +24,7 @@ import java.util.Arrays;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String[] PUBLIC_MATCHERS = {"/localhost:8080/**"};
+    private static final String[] PUBLIC_MATCHERS = {"/h2-console/**"};
 
     @Autowired
     private Environment env;
@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        if (Arrays.asList(env.getActiveProfiles()).contains("dev")) {
+        if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
             http.headers().frameOptions().disable();
         }
 
