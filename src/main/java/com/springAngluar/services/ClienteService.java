@@ -46,6 +46,9 @@ public class ClienteService {
     public Cliente update(Long id, ClienteDto objDto) {
         objDto.setId(id);
         Cliente oldObj = findById(id);
+        if(!objDto.getPassword().equals(oldObj.getPassword())) {
+            objDto.setPassword(encoder.encode(objDto.getPassword()));
+        }
         validateForCpfAndEmail(objDto);
         oldObj = new Cliente(objDto);
         return  repository.save(oldObj);
