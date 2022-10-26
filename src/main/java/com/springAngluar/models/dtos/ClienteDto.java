@@ -56,10 +56,6 @@ public class ClienteDto implements Serializable {
         return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
     }
 
-    public void setPerfis(Perfil perfis){
-        this.perfis.add(perfis.getCodigo());
-    }
-
     public void addPerfil(Perfil perfil) {
         this.perfis.add(perfil.getCodigo());
     }
